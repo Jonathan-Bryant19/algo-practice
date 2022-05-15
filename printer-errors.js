@@ -1,5 +1,5 @@
 function printerError(s) {
-    console.log(s.search(/[a-m]/g))
+    return `${s.length - (s.match(/[a-m]/g) || s.match(/[A-M]/)).length}/${s.length}`
 }
 
-console.log("aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyz")
+console.log(printerError("aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyz"))
