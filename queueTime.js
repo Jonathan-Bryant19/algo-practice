@@ -17,12 +17,12 @@ function queueTime(customers, n) {
     for (let t of customers) {
         let idx = w.indexOf(Math.min(...w));
         w[idx] += t;
-        console.log(w)
     }
+    return Math.max(...w)
 }
 
-console.log(queueTime([5,3,4], 1))
-
+console.log(queueTime([3,6,9,7,4], 3))
+// [10, 10, 9]
 
 /*
 
