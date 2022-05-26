@@ -1,8 +1,10 @@
-function lastDigit(as) {
-const number = 12345
-console.log(number[1])
-//   let answer = BigInt(as[0] ** (as[1] ** as[2]))
-//   return answer
+function lastDigit(a,b) {
+// const number = 12345
+// console.log(number.toString().charAt(number.toString().length -1))
+    // let number = (as[0] ** (as[1] ** as[2]))
+    let number = BigInt(Math.pow(a, b)).toString()
+    let answer = number.toString().charAt(number.toString().length -1)
+    return number
 }
 
-console.log(lastDigit([4,3,6])) // should return 4
+console.log(lastDigit(10,(10**10))) 
