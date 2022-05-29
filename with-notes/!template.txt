@@ -3,11 +3,11 @@
 * Rank: 
     * Kyu: 8 Kyu (easiest) ==> 1 Kyu (hardest). Dan (master level): 1 Dan (easiest) ==> 8 Dan (hardest).
 * Link: 
-* In My Own Words: 
-* Test Conditions: 
-    * 
-* Pseudocode: 
-*/
 
-/**
+* In My Own Words: 
+
+* Test Conditions: 
+ 
+* Pseudocode: 
+
 */
