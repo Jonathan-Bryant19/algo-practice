@@ -27,6 +27,7 @@
       <li><strong>In My Own Words</strong>: The problem rephrased in my own words</li>
       <li><strong>Test Conditions</strong>: Several examples of successful input/output</li>
       <li><strong>Pseudocode</strong>: A pseudocode breakdown written before attempting the solution</li>
+      <li><strong>Notes After Attempt</strong>: Notes on my solution versus the "Best Practices" solution</li>
     </ul> 
   </p>
   <br />
