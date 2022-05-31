@@ -10,6 +10,11 @@
   <a href="https://www.codewars.com">
     <img src="./images/codewars-logo.png" alt="Logo" width="238" height="125">
   </a>
+  <div>
+  <a href="https://www.codewars.com">
+    <img src="https://www.codewars.com/users/Jonathan-Bryant/badges/small" alt="Logo" >
+  </a>
+  </div>
 
 <br />
 <h1 align="center">Algorithm Practice</h3>
