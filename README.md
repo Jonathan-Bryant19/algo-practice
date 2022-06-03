@@ -10,6 +10,9 @@
   <a href="https://www.codewars.com">
     <img src="./images/codewars-logo.png" alt="Logo" width="238" height="125">
   </a>
+  <a href="https://leetcode.com/">
+    <img src="./images/leetcode-logo.png" alt="Logo" width="238" height="125">
+  </a>
   <div>
   <a href="https://www.codewars.com">
     <img src="https://www.codewars.com/users/Jonathan-Bryant/badges/small" alt="Logo" >
@@ -20,14 +23,10 @@
 <h1 align="center">Algorithm Practice</h3>
 
   <p align="left">
-    The purpose of this repo is to log problems I have solved using Codewars, along with notes on how I approached the problem. All problems in the <code>with-notes</code> folder include info from the following template:
+    The purpose of this repo is to log problems I have solved using Leetcode and Codewars, along with notes on how I approached the problem. All problems in the <code>with-notes</code> folder include info from the following template:
     <ul align="left">
       <li><strong>Date</strong>: The date the problem was attempted</li>
-      <li><strong>Rank</strong>: The difficulty level Codewars assigned the problem</li>
-      <ul>
-        <li><em><u>Kyu</u></em>: 8 Kyu (easiest) ==> 1 Kyu (hardest)</li>
-        <li><em><u>Dan (Master Level)</u></em>: 1 Dan (easiest) ==> 8 Dan (hardest)</li>
-      </ul>
+      <li><strong>Rank/Difficulty</strong>: The difficulty level assigned the problem</li>
       <li><strong>Link</strong>: A link to the problem</li>
       <li><strong>In My Own Words</strong>: The problem rephrased in my own words</li>
       <li><strong>Test Conditions</strong>: Several examples of successful input/output</li>
