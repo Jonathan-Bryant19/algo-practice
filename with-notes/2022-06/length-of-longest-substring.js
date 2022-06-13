@@ -34,24 +34,27 @@
  * @return {number}
  */
  var lengthOfLongestSubstring = function(s) {
+    if (s === " ") return 1
     let container = []
     let counter = 0
     let start = 0
+    let index = 0
     let stringArray = s.split("")
     while (start < stringArray.length) {
-        // container.push(stringArray[start])
         if (container.includes(stringArray[start])) {
             if (container.length > counter) counter = container.length
-            start = stringArray.findIndex(stringArray[start])
-            if (start + counter > stringArray.length) return counter
             container = []
+            index += 1
+            start = index
         } else {
             container.push(stringArray[start])
+            if (container.length > counter) counter = container.length
+            if (counter === stringArray.length) break
             start += 1
         }
+    
     }
-    counter = container.length
     return counter
 };
 
-console.log(lengthOfLongestSubstring("dvdf"))
+console.log(lengthOfLongestSubstring("pwkbzwew"))
