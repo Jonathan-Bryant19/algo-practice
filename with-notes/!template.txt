@@ -2,7 +2,6 @@
 * Date: 
 * Rank: 
 * Link: 
-
 * In My Own Words: 
 
 * Test Conditions: 
@@ -17,7 +16,6 @@
 * Date: 
 * Rank: 
 * Link: 
-
 * In My Own Words: 
 
 * Test Conditions: 
