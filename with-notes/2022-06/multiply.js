@@ -1,5 +1,5 @@
 /*
-* Date: 6.22.
+* Date: 6.22.22
 * Rank: 8 Kyu
 * Link: https://www.codewars.com/kata/523b66342d0c301ae400003b/train/javascript
 * In My Own Words: 
