@@ -10,25 +10,13 @@ Input: nums = [Example 1:
 
 Input: nums = [1,7,3,6,5,6]
 Output: 3
-Explanation:
-The pivot index is 3.
-Left sum = nums[0] + nums[1] + nums[2] = 1 + 7 + 3 = 11
-Right sum = nums[4] + nums[5] = 5 + 6 = 11
-Example 2:
 
 Input: nums = [1,2,3]
 Output: -1
-Explanation:
-There is no index that satisfies the conditions in the problem statement.
-Example 3:
 
 Input: nums = [2,1,-1]
 Output: 0
-Explanation:
-The pivot index is 0.
-Left sum = 0 (no elements to the left of index 0)
-Right sum = nums[1] + nums[2] = 1 + -1 = 0]
-Output: 3
+
 
 Input: nums = [1,2,3]
 Output: -1
@@ -45,24 +33,16 @@ Output: 0
 */
 
 var pivotIndex = function(nums) {
-    let sumLeft = 0
-    let sumRight = 0
     const sumTotal = nums.reduce((a, b) => a + b)
-    for (let i = 0; i < nums.length; i++) {
-        if (i = 0) {
-            sumLeft = 0
-            sumRight = sumTotal - nums[i]
-            if (sumLeft === sumRight) return 0
-        }
-        if (i = nums.length - 1) {
-            sumRight = 0
-            sumLeft = sumTotal - nums[i]
-            if (sumLeft === sumRight) return nums.length -1
-        } 
+    let sumLeft = 0
+    let sumRight = sumTotal - nums[0]
+    if (sumLeft === sumRight) return 0
+    for (let i = 1; i < nums.length; i++) {
         sumLeft += nums[i - 1]
-        sumRight += sumTotal - sumLeft + nums[i]
-        console.log(sumLeft, sumRight)
+        sumRight -= nums[i]
+        if (sumLeft === sumRight) return i
     }
+    return -1
 };
 
-console.log(pivotIndex([1,7,3,6,5,6]))
+console.log(pivotIndex([1,7,4,7,5,6]))
