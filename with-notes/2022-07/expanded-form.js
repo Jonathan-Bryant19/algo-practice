@@ -16,7 +16,7 @@
         c. Add the number of 0's for that place and concat with +
     3. Return answer string.
 * Notes After Attempt:
-    I got hung up on iterating over a number. Pay attention to the return value! I don't like the nested loop
+    I got hung up on iterating over a number. Pay attention to the return value! I don't like the nested loop and this thing got ugly quick. The Best Practices solutions are chains of methods. This one was harder than I gave it credit for. 
 */
 
 function checkForZeros(num) {
@@ -26,24 +26,29 @@ function checkForZeros(num) {
 }
 
 function expandedForm(num) {
+    console.log(num)
     if (checkForZeros(num)) return num.toString()
     const str = num.toString()
     let digits = str.length - 1
+    const arr = []
     let answer = ""
     for (let i = 0; i < str.length; i++) {
-      if (str[i] == 0 && i !== str.length - 1) { // here
+      if (str[i] == 0) { // here
         digits -= 1
         continue
       }
-      if (str[i] != 0) answer += str[i]
+      answer += str[i]
       for (let j = digits; j > 0; j--) {
         answer += "0"    
       }
-      if (i < str.length - 1 && i !== str.length - 1 && str[i] != "0") answer += " + " // here
+    //   if (i < str.length - 2) answer += " + " // here
+      arr.push(answer)
+      answer = ""
       digits -= 1
     }
-    return answer
+
+    return arr.join(" + ")
 }
 
-console.log(expandedForm(9240))
+console.log(expandedForm(990009))
 // console.log(checkForZeros(9000))
