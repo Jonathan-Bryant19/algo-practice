@@ -1,16 +1,10 @@
-class Student {
-    constructor(firstName, lastName, year) {
-        this.firstName = firstName
-        this.lastName = lastName
-        this.grade = year
+var rotate = function(nums, k) {
+    if (k > nums.length) k = k % nums.length
+    const reference = nums.slice(-k).concat(nums.slice(0, nums.length + 1 - k))
+    for (let i = 0; i < nums.length; i++) {
+        nums[i] = reference[i]
     }
-    fullName() {
-        console.log(`Your full name is ${this.firstName} ${this.lastName}.`)
-    }
-    static EnrollStudents() {
-        console.log("ENROLLING STUDENTS!")
-    }
-}
+    return nums
+};
 
-let firstStudent = new Student("Jonathan", "Bryant", 19)
-let secondStudent = new Student("Logan", "Bryant", 2)
+console.log(rotate([1,2,3,4,5,6,7], 8))
