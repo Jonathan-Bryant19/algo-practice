@@ -1,10 +1,13 @@
-var rotate = function(nums, k) {
-    if (k > nums.length) k = k % nums.length
-    const reference = nums.slice(-k).concat(nums.slice(0, nums.length + 1 - k))
-    for (let i = 0; i < nums.length; i++) {
-        nums[i] = reference[i]
+function calculator(a,b,sign){
+    const operators = ["+", "-", "/", "*"]
+    if (!operators.includes(sign) || !Number.isInteger(a) || !Number.isInteger(b)) return "unknown value"
+    const calc = {
+      "+": function (a, b) {return a + b},
+      "-": function (a, b) {return a - b},
+      "/": function (a, b) {return a / b},
+      "*": function (a, b) {return a * b}
     }
-    return nums
-};
+    return calc[sign](a, b)
+}
 
-console.log(rotate([1,2,3,4,5,6,7], 8))
+console.log(calculator(3, "h", "+"))
