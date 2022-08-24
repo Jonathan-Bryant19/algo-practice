@@ -19,31 +19,42 @@ function ListNode(val, next) {
     this.next = (next===undefined ? null : next)
 }
 
-function SinglyLinkedList(val) {
-    function constructor() {
+class SinglyLinkedList {
+    constructor() {
         this.head = null
+        this.tail = null
+        this.length = 0
     }
 
-    function push(val) {
+    push(val) {
         const newNode = new ListNode(val)
-        if(!(this.head)) {
+        if(!this.head) {
             this.head = newNode
+            this.tail = this.head
         } else {
-            this.next = newNode
+            this.tail.next = newNode
+            this.tail = newNode
         }
+        this.length++
+        return this
     }
-
-    
-
 }
 
-let currentNode = new ListNode(1,2,2,1)
-currentNode = currentNode.next
-console.log(currentNode.next)
-var isPalindrome = function(head) {
-    const arr = []
-    // while ()
-    return null
+const list = new SinglyLinkedList()
+list.push(1)
+list.push(2)
+list.push(2)
+list.push(1)
+// console.log(list.tail)
+
+var isPalindrome = function(list) {
+    let reverse = [...list].reverse()
+    let j = list.length - 1
+    for (let i = 0; i < j; i++) {
+        if (list[i] !== reverse[j]) return false
+        j -= 1
+    }
+    return true
 };
 
-console.log(isPalindrome([1,2,2,1]))
+console.log(isPalindrome(list))
