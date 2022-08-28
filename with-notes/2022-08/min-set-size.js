@@ -19,25 +19,17 @@ var minSetSize = function(arr) {
     const minimum = Math.ceil(arr.length / 2)
     let hash = {}
     let counter = 0
-    let maxTemp = 0
     let digitsRemoved = 0
-    let hashValue = null
     for (let i = 0; i < arr.length; i++) {
         hash[arr[i]] = (hash[arr[i]] || 0) + 1
     }
-    while (digitsRemoved <= minimum) {
-        for (let val in hash) {
-            if (hash[val] > maxTemp) {
-                maxTemp = hash[val]
-                hashValue = val
-            }
-        }
-        digitsRemoved += hash[hashValue]
-        if (digitsRemoved <= minimum) counter++
-        hash[hashValue] = 0
-        maxTemp = 0
+    const freq = Object.values(hash)
+    const sorted = freq.sort((a, b) => a - b)
+    while (digitsRemoved < minimum) {
+        digitsRemoved += sorted.pop()
+        counter++
     }
     return counter
 };
 
-console.log(minSetSize([[1,9]]))
+console.log(minSetSize([1,9]))
