@@ -44,4 +44,4 @@ multiplicationTable = function(size) {
     return table
 }
 
-console.log(multiplicationTable(5))
+console.log(multiplicationTable(4))
