@@ -65,26 +65,45 @@ const GLIDER_BOARD = {
 
 function getNextGeneration(inputBoard) {
     const outputBoard = {...inputBoard}
-    
+    let firstRow, lastRow
 
-    // Count Neighbors Helper Function
-    function countNeighbors(row, col) {
-        return `${row}:${col}`
+    // Count Living Neighbors Helper Function
+    function countNeighbors(row, col, onlyTop = false) {
+        let livingCells = 0
+        const neighborhood = [[row-1, col-1], [row-1, col], [row-1, col+1], [row, col-1], [row, col], [row, col+1], [row+1, col-1], [row+1, col], [row+1, col+1]]
+        // The row gives you the key. See if it's defined. If it is, it points to an array. If the array includes the col value, then that cell is alive. Use this same logic to calculate all the relative positions.
+        for (let i = 0; onlyTop ? i < 3 : i < neighborhood.length; i++) {
+            if (inputBoard[neighborhood[i][0]] && inputBoard[neighborhood[i][0]].includes(neighborhood[i][1])) {
+                livingCells++
+            }
+        }
+        console.log(row,col)
+        return livingCells
     }
     
-    
-    // Grab keys to determine where to start and stop
+
+    // Grab keys to determine where to start and stop columns
     const keysArr = Object.keys(inputBoard)
     // Loop over each row
     for (let i = keysArr[0] - 1; i <= parseInt(keysArr[keysArr.length-1]) + 1; i++) {
         if (inputBoard[i] && inputBoard[i][0] !== undefined) {
-            for (let j = (inputBoard[i][0]) - 1; j <= inputBoard[i][inputBoard[i].length - 1] + 1; j++) {
-                
+            // Define first and last rows with data so we can check cells above those points
+            if (inputBoard[i].length > 0) {
+                if (!firstRow) firstRow = i
+                lastRow = i
             }
-        } else {
-            console.log("Nothing in row ", i, "!!!")
-        }
+            // Determine how many columns to loop through
+            // let columnCount = Math.max(inputBoard[i-1][inputBoard[i-1].length - 1], inputBoard[i][inputBoard[i].length - 1], inputBoard[i+1][inputBoard[i+1].length - 1])
+            // Loop through each item in the array (column)
+            for (let j = (inputBoard[i][0]) - 1; j <= inputBoard[i][inputBoard[i].length - 1] + 1; j++) {
+                neighbors = countNeighbors(i,j)
+                console.log(neighbors)
+            }
+        } 
     }
+    // Check cells above and below the input
+    
+    console.log("firstRow: ", firstRow, "lastRow: ", lastRow)
     return outputBoard
 }
 
