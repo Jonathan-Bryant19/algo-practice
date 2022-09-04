@@ -23,14 +23,15 @@
         * If n = 4, center cell retains current state
         * Else center cell is dead 
 * Notes After Attempt:
-
+    * This solution relies on keys being ordered and the numbers inside the arrays being ordered.
+    * The input must contain empty arrays at the start and end the input to signify the end of the cell group. Otherwise we can't calculate how many columns to loop over without messy code.
 */
 
 const BLOCK_BOARD = {
     0: [],
     1: [1,2],
     2: [1,2],
-    3: [],
+    3: []
 };
 const BEEHIVE_BOARD = {
     0: [],
@@ -62,6 +63,12 @@ const GLIDER_BOARD = {
     4: [],
     5: []
 }
+const TEST_BOARD = {
+    3: [],
+    4: [2,3,4],
+    5: [1],
+    6: []
+}
 
 function getNextGeneration(inputBoard) {
     const outputBoard = {...inputBoard}
@@ -77,7 +84,7 @@ function getNextGeneration(inputBoard) {
                 livingCells++
             }
         }
-        console.log(row,col)
+        console.log("row: ", row, "col: ", col)
         return livingCells
     }
     
@@ -93,18 +100,27 @@ function getNextGeneration(inputBoard) {
                 lastRow = i
             }
             // Determine how many columns to loop through
-            // let columnCount = Math.max(inputBoard[i-1][inputBoard[i-1].length - 1], inputBoard[i][inputBoard[i].length - 1], inputBoard[i+1][inputBoard[i+1].length - 1])
+            let columnCountStart = Math.min(inputBoard[i-1][0] || Infinity, inputBoard[i][0] || Infinity, inputBoard[i+1][0] || Infinity)
+            let columnCountEnd = Math.max(inputBoard[i-1][inputBoard[i-1].length - 1] || 0, inputBoard[i][inputBoard[i].length - 1] || 0, inputBoard[i+1][inputBoard[i+1].length - 1] || 0)
+            console.log("i: ", i, "columnCountStart: ", columnCountStart, "columnCountEnd: ", columnCountEnd)
             // Loop through each item in the array (column)
-            for (let j = (inputBoard[i][0]) - 1; j <= inputBoard[i][inputBoard[i].length - 1] + 1; j++) {
-                neighbors = countNeighbors(i,j)
+            for (let j = columnCountStart - 1; j <= columnCountEnd + 1; j++) {
+                let neighbors = countNeighbors(i,j)
                 console.log(neighbors)
             }
         } 
     }
     // Check cells above and below the input
-    
+    for (let i = inputBoard[firstRow][0] - 1; i <= inputBoard[firstRow][inputBoard[firstRow].length - 1] + 1; i++) {
+        let neighbors = countNeighbors(firstRow - 1, i)
+        console.log("start: ", neighbors)
+    }
+    for (let i = inputBoard[lastRow][0] - 1; i <= inputBoard[lastRow][inputBoard[lastRow].length - 1] + 1; i++) {
+        let neighbors = countNeighbors(lastRow + 1, i)
+        console.log("end: ", neighbors)
+    }
     console.log("firstRow: ", firstRow, "lastRow: ", lastRow)
     return outputBoard
 }
 
-console.log(getNextGeneration(GLIDER_BOARD))
+console.log(getNextGeneration(BLINKER_BOARD))
