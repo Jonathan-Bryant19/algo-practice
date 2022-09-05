@@ -25,6 +25,7 @@
 * Notes After Attempt:
     * This solution relies on keys being ordered and the numbers inside the arrays being ordered.
     * The input must contain empty arrays at the start and end the input to signify the end of the cell group. Otherwise we can't calculate how many columns to loop over without messy code.
+    * Need tests for static, oscillators, glider, ordered arrays, ordered keys, and empty arrays before and after input. 
 */
 
 const BLOCK_BOARD = {
