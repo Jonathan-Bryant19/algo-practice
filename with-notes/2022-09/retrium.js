@@ -47,6 +47,13 @@ const BLINKER_BOARD = {
     3: [2],
     4: []
 }
+const BLINKER_BOARD2 = {
+    0: [],
+    1: [],
+    2: [1,2,3],
+    3: [],
+    4: []
+}
 const TOAD_BOARD = {
     0: [],
     1: [],
@@ -67,32 +74,55 @@ const TEST_BOARD = {
     0: [],
     1: [3],
     2: [2,3,4],
-    3: [3]
+    3: [3],
+    4: []
 }
 
 function getNextGeneration(inputBoard) {
-    const outputBoard = {...inputBoard}
+    const outputBoard = JSON.parse(JSON.stringify(inputBoard))
     let firstRow, lastRow
 
     // Count Living Neighbors Helper Function
     function countNeighbors(row, col) {
         let livingCells = 0
         const neighborhood = [[row-1, col-1], [row-1, col], [row-1, col+1], [row, col-1], [row, col], [row, col+1], [row+1, col-1], [row+1, col], [row+1, col+1]]
-        // The row gives you the key. See if it's defined. If it is, it points to an array. If the array includes the col value, then that cell is alive. Use this same logic to calculate all the relative positions.
+        
+        function sortedIndex(array, value) {
+            let low = 0
+            let high = array.length;
+            while (low < high) {
+                let mid = low + high >>> 1;
+                if (array[mid] < value) low = mid + 1;
+                else high = mid;
+            }
+            return low;
+        }
+
         for (let i = 0; i < neighborhood.length; i++) {
             if (inputBoard[neighborhood[i][0]] && inputBoard[neighborhood[i][0]].includes(neighborhood[i][1])) {
                 livingCells++
-                if (livingCells > 4) {
-                    // outputBoard[row].splice(col, 1)
-                    console.log("Dead cell")
-                }
             }
         }
-        // console.log("row: ", row, "col: ", col)
+        if (livingCells === 3) {
+            if (outputBoard[row].includes(col)) {
+                return livingCells
+            } else {
+                const index = sortedIndex(outputBoard[row], col)
+                outputBoard[row].splice(index, 0, col) 
+            }
+            return livingCells
+        }
+        if (livingCells < 3 || livingCells > 4) {
+            if (!outputBoard[row].includes(col)) {
+                return livingCells
+            } else {
+                const index = sortedIndex(outputBoard[row], col)
+                outputBoard[row].splice(index, 1)
+            }
+        }
         return livingCells
     }
     
-
     // Grab keys to determine where to start and stop columns
     const keysArr = Object.keys(inputBoard)
     // Loop over each row
@@ -103,29 +133,40 @@ function getNextGeneration(inputBoard) {
                 if (!firstRow) firstRow = i
                 lastRow = i
             }
+            // Add next key and empty array value to input and output if absent
+            if (inputBoard[i+1] === undefined) {
+                inputBoard[i+1] = []
+                outputBoard[i+1] = []
+            }
+            if (inputBoard[i-1] === undefined) {
+                inputBoard[i-1] = []
+                outputBoard[i-1] = []
+            }
             // Determine how many columns to loop through
             let columnCountStart = Math.min(inputBoard[i-1][0] || Infinity, inputBoard[i][0] || Infinity, inputBoard[i+1][0] || Infinity)
-            let columnCountEnd = Math.max(inputBoard[i-1][inputBoard[i-1].length - 1] || 0, inputBoard[i][inputBoard[i].length - 1] || 0, inputBoard[i+1][inputBoard[i+1].length - 1] || 0)
-            // console.log("i: ", i, "columnCountStart: ", columnCountStart, "columnCountEnd: ", columnCountEnd)
+            let columnCountEnd = Math.max(inputBoard[i-1][inputBoard[i-1].length - 1] || -Infinity, inputBoard[i][inputBoard[i].length - 1] || -Infinity, inputBoard[i+1][inputBoard[i+1].length - 1] || -Infinity)
             // Loop through each item in the array (column)
             for (let j = columnCountStart - 1; j <= columnCountEnd + 1; j++) {
-                let neighbors = countNeighbors(i,j)
-                // console.log(neighbors)
+                countNeighbors(i,j)
             }
         } 
     }
     // Check cells above and below the input
     for (let i = inputBoard[firstRow][0] - 1; i <= inputBoard[firstRow][inputBoard[firstRow].length - 1] + 1; i++) {
-        let neighbors = countNeighbors(firstRow - 1, i)
-        // console.log("start: ", neighbors)
+        countNeighbors(firstRow - 1, i)
     }
     for (let i = inputBoard[lastRow][0] - 1; i <= inputBoard[lastRow][inputBoard[lastRow].length - 1] + 1; i++) {
-        let neighbors = countNeighbors(lastRow + 1, i)
-        // console.log("end: ", neighbors)
+        countNeighbors(lastRow + 1, i)
     }
-    // console.log("firstRow: ", firstRow, "lastRow: ", lastRow)
-    console.log("Input:", inputBoard)
     return outputBoard
 }
 
-console.log(getNextGeneration(BLINKER_BOARD))
+console.log(getNextGeneration({
+    '0': [],
+    '1': [],
+    '2': [],
+    '3': [],
+    '4': [ 4, 6 ],
+    '5': [ 5, 6 ],
+    '6': [ 5 ]
+  }))
