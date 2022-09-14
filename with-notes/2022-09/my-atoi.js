@@ -20,14 +20,12 @@
 var myAtoi = function(s) {
     let finalString = ""
     let sArray = s.split("")
-    const regex = /[+-]?([0-9]+\.?[0-9]*|\.[0-9]+)$/
-    return s.replace(regex, "")
-    // for (let i = 0; i < sArray.length; i++) {
-    //     if (sArray[i] === regex || sArray[i] === "+" || sArray[i] === "-" || sArray[i] === ".") {
-    //         finalString += sArray[i]
-    //     }
-    // }
-    // return finalString
+    for (let index = 0; index < sArray.length; index++) {
+        if (sArray[index] === "0" || sArray[index] === "1" || sArray[index] === "2" || sArray[index] === "3" || sArray[index] === "4" || sArray[index] === "5" || sArray[index] === "6" || sArray[index] === "7" || sArray[index] === "8" || sArray[index] === "9" || sArray[index] === "+" || sArray[index] === "-" || sArray[index] === ".") {
+            finalString += sArray[index]
+        }
+    }
+    return finalString
 }
 
 console.log(myAtoi("    -41.93 with words"))
