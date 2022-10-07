@@ -31,5 +31,5 @@ function gps (s, x) {
 
 module.exports = gps
 
-console.log(gps(20, [0.0, 0.23, 0.46, 0.69, 0.92, 1.15, 1.38, 1.61]))
+// console.log(gps(20, [0.0, 0.23, 0.46, 0.69, 0.92, 1.15, 1.38, 1.61]))
 
