@@ -14,5 +14,23 @@
 */
 
 function nbMonths(startPriceOld, startPriceNew, savingperMonth, percentLossByMonth){
-    
+    if (startPriceNew <= startPriceOld) return [0, startPriceOld-startPriceNew]
+    let months = 0
+    let savings = 0
+    let currentPriceOld = startPriceOld
+    let currentPriceNew = startPriceNew
+    let currentFunds = currentPriceOld
+    while (currentFunds < currentPriceNew) {
+        months++
+        savings += savingperMonth
+        currentPriceOld -= Math.ceil(currentPriceOld * (percentLossByMonth/100))
+        currentPriceNew -= Math.ceil(currentPriceNew * (percentLossByMonth/100))
+        currentFunds = savings + currentPriceOld
+        if (months % 2 !== 0) percentLossByMonth += 0.5
+    }
+    return [months, currentFunds-currentPriceNew]
 }
+
+nbMonths(2000, 8000, 1000, 1.5)
+
+module.exports = nbMonths
