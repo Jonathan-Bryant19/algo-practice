@@ -13,5 +13,13 @@
 */
 
 function partlist(arr) {
-    // your code
+    const answer = []
+    for (let i = 0; i+1 < arr.length; i++) {
+        const firstPart = arr.slice(0, i+1).join(" ")
+        const secondPart = arr.slice(i+1).join(" ")
+        answer.push([firstPart, secondPart])
+    }
+    return answer
 }
+
+module.exports = partlist
