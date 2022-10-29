@@ -1,16 +1,4 @@
-/*
-* Date: 
-* Rank: 
-* Link: 
-* In My Own Words: 
 
-* Test Conditions: 
- 
-* Pseudocode: 
-
-* Notes After Attempt:
-
-*/
 
 =begin
 * Date: 
