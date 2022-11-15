@@ -22,15 +22,9 @@ function race(v1, v2, g) {
   let v2Distance = g
   let seconds = 0
   let remainder = 0
-  const v1FeetPerSecond = v1 / 3600
-  const v2FeedPerSecond = v2 / 3600
   const time = [0, 0, 0]
 
-  while (v1Distance <= v2Distance) {
-    v1Distance += v1FeetPerSecond
-    v2Distance += v2FeedPerSecond
-    seconds++
-  }
+  seconds =  g * 3600 / (v2 - v1)
 
   if (seconds >= 3600) {
     time[0] += Math.floor(seconds/3600)
@@ -40,10 +34,11 @@ function race(v1, v2, g) {
     time[2] += Math.round(seconds % 60)
   } else if (seconds >= 60) {
     time[1] += Math.floor(seconds/60)
-    time[2] += Math.round(seconds % 60)
+    time[2] += Math.floor(seconds % 60)
   } else {
     time[2] += seconds
   }
+  return time
 }
 
 module.exports = race
