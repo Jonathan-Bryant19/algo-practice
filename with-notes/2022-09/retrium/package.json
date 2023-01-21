@@ -1,6 +1,7 @@
 {
   "devDependencies": {
-    "jest": "^29.0.2"
+    "jest": "^29.0.2",
+    "json5": ">=2.2.2"
   },
   "type": "module"
 }
