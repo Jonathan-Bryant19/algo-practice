@@ -9,23 +9,66 @@
   Output: 2
   Input: s = " 2-1 + 2 "
   Output: 3
-  Input: s = "(1+(4+5+2)-3)+(6+8)"
+  Input: s = "(1+(4+5+2)-3 )+(6+8)"
   Output: 23
 * Pseudocode: 
-  1. Declare variable to track result. 
-  2. Split the string into an array.
-  3. Iterate over array
-    a. Every time you see a "(", open a new bank with a value of 0.
-    b. Manipulate that bank accordingly until you see a ")"
-    c. Once a bank closes, add it to the previous bank or the result if root.
-      i. Maybe I can use an array for this. I can reference the bank value based on the index position. 
-    d. If you see a "-", 
+  * Think of it like a stack. Use an array
+  * Start with [0, "+"]
+  * If you see a "(", push a 0 and "+"
+  * If you see a number, find the whole number and use the end of the array to decide how to update the end of the array -1.
+  * If you see a "-", update the end of the array
+  * If you see a "+", update the end of the array
+  * If you see a ")", pop the array and use (array.length-1) -1 to determine the operater you need to combine (array.length-1) with (array.length-1) -2. Update (array.length-1) -2 and pop the array again.
 * Notes After Attempt:
 
 */
 
 function calculate(s) {
+  const result = [0, "+"]
+  const input = s.split("")
+  let fullNumber = 0
+  // callback functions
+  // find entire number
+  const parseFullNumber = function(index) {
+    let temp = input[index]
+    index++
+    while (parseInt(input[index])) {
+      temp += input[index]
+      index++
+    }
+    return [parseInt(temp), index]
+  }
 
+  for (let i = 0; i < input.length; i++) {
+    if (input[i] === "(") {
+      result.push(0, "+")
+    } else if (parseInt[input[i]]) {
+      const numberInfo = parseFullNumber(i)
+      if (result[result.length - 1] === "+") {
+        result[result.length - 2] += numberInfo[0]
+        i = numberInfo[1] - 1
+      } else if (result[result.length - 1] === "-") {
+        result[result.length -2] -= numberInfo[0]
+        i = numberInfo[1] - 1
+      }
+    } else if (input[i] === ")") {
+      result.pop()
+      if (result.length - 2 === "+") {
+        result[result.length - 3] += fullNumber
+        fullNumber = 0 
+        result.pop()
+      } else if (result.length - 2 === "-") {
+        result[result.length - 3] -= fullNumber
+        fullNumber = 0
+        result.pop()
+      }
+    } else if (input[i] === "-") {
+      result[result.length - 1] = "-"
+    } else if (input[i] === "+") {
+      result[result.length - 1] = "+"
+    }
+  }
+  return result[0]
 }
 
 module.exports = calculate
