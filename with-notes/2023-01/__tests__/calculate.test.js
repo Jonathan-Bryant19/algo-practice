@@ -24,3 +24,9 @@ test('-(3 + 2) = -5', () => {
   const actualValue = calculate(s)
   expect(actualValue).toEqual(expectedValue)
 })
+test('  30 = 30', () => {
+  const s = "  30"
+  const expectedValue = 30
+  const actualValue = calculate(s)
+  expect(actualValue).toEqual(expectedValue)
+})

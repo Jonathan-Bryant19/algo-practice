@@ -26,7 +26,7 @@
 function calculate(s) {
   const result = [0, "+"]
   const input = s.split("")
-  let fullNumber = 0
+  
   // callback functions
   // find entire number
   const parseFullNumber = function(index) {
@@ -42,7 +42,7 @@ function calculate(s) {
   for (let i = 0; i < input.length; i++) {
     if (input[i] === "(") {
       result.push(0, "+")
-    } else if (parseInt[input[i]]) {
+    } else if (parseInt(input[i])) {
       const numberInfo = parseFullNumber(i)
       if (result[result.length - 1] === "+") {
         result[result.length - 2] += numberInfo[0]
@@ -53,13 +53,11 @@ function calculate(s) {
       }
     } else if (input[i] === ")") {
       result.pop()
-      if (result.length - 2 === "+") {
-        result[result.length - 3] += fullNumber
-        fullNumber = 0 
+      if (result[result.length - 2] === "+") {
+        result[result.length - 3] += result[result.length - 1]
         result.pop()
-      } else if (result.length - 2 === "-") {
-        result[result.length - 3] -= fullNumber
-        fullNumber = 0
+      } else if (result[result.length - 2] === "-") {
+        result[result.length - 3] -= result[result.length - 1]
         result.pop()
       }
     } else if (input[i] === "-") {
@@ -72,3 +70,4 @@ function calculate(s) {
 }
 
 module.exports = calculate
+// console.log(calculate("  30"))
