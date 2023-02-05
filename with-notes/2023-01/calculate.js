@@ -32,7 +32,7 @@ function calculate(s) {
   const parseFullNumber = function(index) {
     let temp = input[index]
     index++
-    while (parseInt(input[index])) {
+    while (parseInt(input[index]) || input[index] === "0") {
       temp += input[index]
       index++
     }
