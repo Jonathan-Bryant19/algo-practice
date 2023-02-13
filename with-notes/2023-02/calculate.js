@@ -24,11 +24,14 @@
 */
 
 function calculate(s) {
-  const result = [0, "+"]
+  const resultStack = [0, "+"]
   const input = s.split("")
+  const currentOperatorIndex = function() { return resultStack.length - 1 }
+  const currentValueIndex = function() { return resultStack.length - 2 }
+  const previousOperatorIndex = function() { return resultStack.length - 3 }
+  const previousValueIndex = function() { return resultStack.length - 4 }
   
-  // callback functions
-  // find entire number
+  // Starting at a given index, loop through the input array and collect the full number.
   const parseFullNumber = function(index) {
     let temp = input[index]
     index++
@@ -39,35 +42,42 @@ function calculate(s) {
     return [parseInt(temp), index]
   }
 
+  // Loop through the input array and handle each individual character.
   for (let i = 0; i < input.length; i++) {
+    // If there is an opening parentheses, add a zero and "+" to the stack to begin tracking the value of items within this set of parentheses.
     if (input[i] === "(") {
-      result.push(0, "+")
+      resultStack.push(0, "+")
+      // If the current character is a number, use the parseFullNumber callback function to determine what the full number is.
     } else if (parseInt(input[i])) {
       const numberInfo = parseFullNumber(i)
-      if (result[result.length - 1] === "+") {
-        result[result.length - 2] += numberInfo[0]
+      // Check the stack to determine which operator to use to handle the number and update the stack value accordingly.
+      if (resultStack[currentOperatorIndex()] === "+") {
+        resultStack[currentValueIndex()] += numberInfo[0]
         i = numberInfo[1] - 1
-      } else if (result[result.length - 1] === "-") {
-        result[result.length -2] -= numberInfo[0]
+      } else if (resultStack[currentOperatorIndex()] === "-") {
+        resultStack[currentValueIndex()] -= numberInfo[0]
         i = numberInfo[1] - 1
       }
+      // If there is a closing parentheses, drop the last operater from the stack and check the new value of the last operator. Use that to update the last value in the stack.
     } else if (input[i] === ")") {
-      result.pop()
-      if (result[result.length - 2] === "+") {
-        result[result.length - 3] += result[result.length - 1]
-        result.pop()
-      } else if (result[result.length - 2] === "-") {
-        result[result.length - 3] -= result[result.length - 1]
-        result.pop()
+      if (resultStack[previousOperatorIndex()] === "+") {
+        resultStack[previousValueIndex()] += resultStack[currentValueIndex()]
+        resultStack.splice(currentValueIndex(), 2)
+      } else if (resultStack[previousOperatorIndex()] === "-") {
+        resultStack[previousValueIndex()] -= resultStack[currentValueIndex()]
+        resultStack.splice(currentValueIndex(), 2)
       }
+      // If there is an operator, update the last element of the stack to match that operator. 
     } else if (input[i] === "-") {
-      result[result.length - 1] = "-"
+      resultStack[currentOperatorIndex()] = "-"
     } else if (input[i] === "+") {
-      result[result.length - 1] = "+"
+      resultStack[currentOperatorIndex()] = "+"
     }
   }
-  return result[0]
+
+  // Return the first element of the result stack, which holds the final value.
+  return resultStack[0]
 }
 
-module.exports = calculate
-// console.log(calculate("  30"))
+// module.exports = calculate
+console.log(calculate("-(3 + 2)"))

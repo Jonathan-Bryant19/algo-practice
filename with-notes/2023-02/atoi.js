@@ -20,6 +20,7 @@
 */
 
 function myAtoi(s) {
+  // Get rid of any leading white space, create array for iteration, and declare variables.
   s = s.trimStart()
   const sArray = s.split("")
   let numberString = ""
@@ -27,10 +28,12 @@ function myAtoi(s) {
   const lowerLimit = Math.pow(2, 31) * (-1)
   let finalNumber = 0
 
+  // Append the numberString with an operator if present.
   if (sArray[0] === "+" || sArray[0] === "-") {
     numberString += sArray[0] 
   }
 
+  // As long as there is a number or decimal point at the current index, continue iterating through the array and appending the numberString with each value.
   for (let i = numberString.length; i < sArray.length; i++) {
     if (parseInt(sArray[i]) || sArray[i] === "0" || sArray[i] === ".") {
       numberString += sArray[i]
@@ -39,16 +42,14 @@ function myAtoi(s) {
     }
   }
   
+  // Evaluate the result of the numberString variable. Return 0 if it is empty or only contains an operator. Otherwise, parse the value of the number from the numberString variable. 
   if (numberString.length === 0 || numberString === "+" || numberString === "-") {
     return 0
-  } else {    
-    if (numberString[0] === "+") {
-      finalNumber = parseFloat(numberString.slice(1))
-    } else {
-      finalNumber = parseFloat(numberString)
-    }
+  } else {
+    numberString[0] === "+" ? finalNumber = parseFloat(numberString.slice(1)) : finalNumber = parseFloat(numberString)
   }
   
+  // Check to be sure the finalNumber is within the limits of a 32-bit signed integer and return the appropriate value.
   if (finalNumber > upperLimit) {
     return upperLimit
   } else if (finalNumber < lowerLimit) {
