@@ -16,7 +16,7 @@
 */
 
 function isBipartite(graph) {
-
+  
 }
 
 module.exports = isBipartite
