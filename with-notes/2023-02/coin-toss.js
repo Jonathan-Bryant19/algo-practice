@@ -16,7 +16,6 @@
 
 // flips = number of flips per sample
 // samples = number of samples
-// probabilityArray = 
 // If I flip a coin `flips` number of times, what are the odds that every flip is the same `side`?
 
 function coinToss(flips, side, samples) {
@@ -26,7 +25,7 @@ function coinToss(flips, side, samples) {
   const flipLog = []
   
   const flip = function() {
-    const result = Math.round( ) === 0 ? "heads" : "tails"
+    const result = Math.round(Math.random()) === 0 ? "heads" : "tails"
     flipLog.push(result)
     return result
   }
@@ -57,4 +56,4 @@ function coinToss(flips, side, samples) {
 }
 
 // module.exports = coinToss
-console.log(coinToss(4, "tails", 10000000))
+console.log(coinToss(2, "tails", 10000000))
